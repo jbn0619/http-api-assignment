@@ -9,12 +9,37 @@
     const parseJSON = (xhr, content) => {
       const obj = JSON.parse(xhr.response);
       console.dir(obj);
+
+      if (obj.message) {
+        const p = document.createElement('p');
+        p.textContent = `Message: ${obj.message}`;
+        content.appendChild(p);
+      }
+
+      if (obj.id) {
+        const p = document.createElement('p');
+        p.textContent = `ID: ${obj.id}`;
+        content.appendChild(p);
+      }
+    };
+
+    const parseXML = (xhr, content) => {
+      const xml = xhr.response;
+
+      content.innerHTML = xml;
     };
 
     const handleResponse = (xhr) => {
       const content = document.querySelector('#content');
 
-      
+      const responseType = xhr.getResponseHeader('Content-Type');
+
+      if (responseType === 'application/json') {
+        parseJSON(xhr, content);
+      }
+      else if (responseType === 'text/xml') {
+        parseXML(xhr, content);
+      }
     };
 
     const sendGet = (e) => {

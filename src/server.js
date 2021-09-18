@@ -24,10 +24,6 @@ const handleGet = (request, response) => {
   const parsedUrl = url.parse(request.url);
 
   const acceptedTypes = request.headers.accept.split(',');
-  console.log(request.method);
-  console.log(acceptedTypes[0]);
-  console.log(parsedUrl.pathname);
-
   if (urlDictionary[request.method][parsedUrl.pathname]) {
     urlDictionary[request.method][parsedUrl.pathname](request, response);
   } else {

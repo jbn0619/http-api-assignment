@@ -53,7 +53,6 @@ const getBadRequest = (request, response) => {
   const acceptedTypes = request.headers.accept.split(',');
   // Prase out if this is a valid bad request or not.
   const parsedUrl = url.parse(request.url);
-  console.log(parsedUrl);
   let message;
   let id;
   let statusCode;
@@ -80,7 +79,7 @@ const getUnauthorized = (request, response) => {
   const acceptedTypes = request.headers.accept.split(',');
   // Prase out if the user is logged in or not.
   const parsedUrl = url.parse(request.url);
-  console.log(parsedUrl);
+  
   let message;
   let id;
   let statusCode;
