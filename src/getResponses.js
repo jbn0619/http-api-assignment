@@ -79,7 +79,7 @@ const getUnauthorized = (request, response) => {
   const acceptedTypes = request.headers.accept.split(',');
   // Prase out if the user is logged in or not.
   const parsedUrl = url.parse(request.url);
-  
+
   let message;
   let id;
   let statusCode;

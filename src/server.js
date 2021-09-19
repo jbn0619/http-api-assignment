@@ -23,7 +23,6 @@ const urlDictionary = {
 const handleGet = (request, response) => {
   const parsedUrl = url.parse(request.url);
 
-  const acceptedTypes = request.headers.accept.split(',');
   if (urlDictionary[request.method][parsedUrl.pathname]) {
     urlDictionary[request.method][parsedUrl.pathname](request, response);
   } else {
