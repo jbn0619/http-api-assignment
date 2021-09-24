@@ -58,12 +58,19 @@
       xhr.send();
     };
 
+    const sendPost = (e) => {
+
+    };
+
     const init = () => {
-      const sendButton = document.querySelector('#send');
+      const submitButton = document.querySelector('#submit');
+      const postButton = document.querySelector('#postSubmit');
 
       const getPage = (e) => sendGet(e);
+      const postPage = (e) => sendPost(e);
 
-      sendButton.addEventListener('click', getPage);
+      submitButton.addEventListener('click', getPage);
+      postButton.addEventListener('click', postPage);
     };
 
     window.onload = init;
@@ -71,21 +78,25 @@
 </head>
 <body>
   <section id="top">
-    <h3>Status Code Tests</h3>
-    <select id="page">
-      <option value="/success">Success</option>
-      <option value="/badRequest">Bad Request</option>
-      <option value="/unauthorized">Unauthorized</option>
-      <option value="/forbidden">Forbidden</option>
-      <option value="/internal">Internal</option>
-      <option value="/notImplemented">Not Implemented</option>
-      <option value="/notFound">Not Found</option>
-    </select>
-    <select id="type">
-      <option value="application/json">JSON</option>
-      <option value="text/xml">XML</option>
-    </select>
-    <button id="send">Send</button>
+    <h3>POST Status Code Tests</h3>
+    <form id="nameForm" action="/addUser" method="post">
+      <label for="name">Name: </label>
+      <input id="nameField" type="text" name="name" />
+      <label for="age">Age: </label>
+      <input id="ageField" type="number" name="age" min="0" max="100" step="1"/>
+      <input id="postSubmit" type="submit" value="Add User" />
+    </form>
+    <form id="userForm" action="/getUsers" method="get">
+      <select id='urlField'>
+        <option value='/getUsers'>/getUsers</option>
+        <option value='/notReal'>/notReal</option>
+      </select>
+      <select id="methodSelect">
+        <option value="get">GET</option>
+        <option value="head">HEAD</option>
+      </select>
+      <input id="submit" type="submit" value="Get User" />
+    </form>
   </section>
   <section id="content">
   </section>

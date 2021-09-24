@@ -33,6 +33,8 @@ const buildResponse = (request, response, responseString, responseNum) => {
   response.end();
 };
 
+// #region Part 1 Methods
+
 // Handles successful requests.
 const getSuccess = (request, response) => {
   const acceptedTypes = request.headers.accept.split(',');
@@ -141,6 +143,16 @@ const getNotImplemented = (request, response) => {
   buildResponse(request, response, responseString, 501);
 };
 
+//#endregion
+
+// #region Part 2 Methods
+
+const getUsers = (request, response) => {
+
+};
+
+//#endregion
+
 const getNotFound = (request, response) => {
   const acceptedTypes = request.headers.accept.split(',');
 
@@ -161,6 +173,7 @@ module.exports = {
   getForbidden,
   getInternal,
   getNotImplemented,
+  getUsers,
   getNotFound,
   buildJSON,
   buildXML,
