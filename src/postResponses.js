@@ -2,7 +2,6 @@ const query = require('querystring');
 const getHandler = require('./getResponses');
 
 const addUser = (request, response) => {
-
   // THIS SECTION OF THE CODE WAS TAKEN AND ADAPTED FROM AN EXAMPLE REPO IN 430
   // GITHUB LINK: https://github.com/IGM-RichMedia-at-RIT/body-parse-example-done
   const body = [];
@@ -25,8 +24,7 @@ const addUser = (request, response) => {
     const bodyString = Buffer.concat(body).toString();
     const bodyParams = query.parse(bodyString);
 
-    // If the user already exists, update them.
-    if (getHandler.users[bodyParams.name]) {
+    if (getHandler.users[bodyParams.name]) { // If the user already exists, update them.
       getHandler.users[bodyParams.name] = bodyParams;
 
       response.writeHead(204, { 'Content-Type': 'application/json' });
@@ -35,9 +33,7 @@ const addUser = (request, response) => {
       };
       response.write(JSON.stringify(responseObj));
       response.end();
-    } 
-    // If both fields are full, create a new user.
-    else if (bodyParams.name && bodyParams.age) {
+    } else if (bodyParams.name && bodyParams.age) { // If both fields are full, create a new user.
       getHandler.users[bodyParams.name] = bodyParams;
 
       response.writeHead(201, { 'Content-Type': 'application/json' });
@@ -46,9 +42,7 @@ const addUser = (request, response) => {
       };
       response.write(JSON.stringify(responseObj));
       response.end();
-    } 
-    // If either fields are missing, return a 400 error.
-    else {
+    } else { // If either fields are missing, return a 400 error.
       response.writeHead(400, { 'Content-Type': 'application/json' });
       const responseObj = {
         message: 'Missing required user parameters.',
