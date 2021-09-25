@@ -7,8 +7,6 @@ const headHandler = require('./headResponses');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-const users = [];
-
 const urlDictionary = {
   GET: {
     '/': htmlHandler.getIndex,
@@ -31,7 +29,7 @@ const urlDictionary = {
   POST: {
     '/addUser': postHandler.addUser,
     notFound: getHandler.getNotFound,
-  }
+  },
 };
 
 // Parses URL and determines what kind of operation the API is handling.

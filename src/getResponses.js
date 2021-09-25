@@ -1,6 +1,6 @@
 const url = require('url');
 
-let users = {};
+const users = {};
 
 // Builds a response with a JSON object
 const buildJSON = (request, response, message, id) => {
@@ -145,7 +145,7 @@ const getNotImplemented = (request, response) => {
   buildResponse(request, response, responseString, 501);
 };
 
-//#endregion
+// #endregion
 
 // #region Part 2 Methods
 
@@ -153,13 +153,12 @@ const getUsers = (request, response) => {
   buildResponse(request, response, JSON.stringify(users), 200);
 };
 
-//#endregion
+// #endregion
 
 const getNotFound = (request, response) => {
-
   const message = 'The page you were looking for was not found.';
   const id = 'notFound';
-  let responseString = buildJSON(request, response, message, id);
+  const responseString = buildJSON(request, response, message, id);
 
   buildResponse(request, response, responseString, 404);
 };
