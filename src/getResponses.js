@@ -1,5 +1,7 @@
 const url = require('url');
 
+let users = {};
+
 // Builds a response with a JSON object
 const buildJSON = (request, response, message, id) => {
   let jsonObj = {
@@ -148,20 +150,16 @@ const getNotImplemented = (request, response) => {
 // #region Part 2 Methods
 
 const getUsers = (request, response) => {
-
+  buildResponse(request, response, JSON.stringify(users), 200);
 };
 
 //#endregion
 
 const getNotFound = (request, response) => {
-  const acceptedTypes = request.headers.accept.split(',');
 
   const message = 'The page you were looking for was not found.';
   const id = 'notFound';
-  let responseString;
-
-  if (acceptedTypes[0] === 'text/xml') responseString = buildXML(request, response, message, id);
-  else responseString = buildJSON(request, response, message, id);
+  let responseString = buildJSON(request, response, message, id);
 
   buildResponse(request, response, responseString, 404);
 };
@@ -178,4 +176,5 @@ module.exports = {
   buildJSON,
   buildXML,
   buildResponse,
+  users,
 };

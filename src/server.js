@@ -7,6 +7,8 @@ const headHandler = require('./headResponses');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
+const users = [];
+
 const urlDictionary = {
   GET: {
     '/': htmlHandler.getIndex,
@@ -32,8 +34,8 @@ const urlDictionary = {
   }
 };
 
-// Handles sending data from the application to the user.
-const handleGet = (request, response) => {
+// Parses URL and determines what kind of operation the API is handling.
+const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
 
   if (urlDictionary[request.method][parsedUrl.pathname]) {
@@ -41,15 +43,6 @@ const handleGet = (request, response) => {
   } else {
     urlDictionary[request.method].notFound(request, response);
   }
-};
-
-const handlePost = (request, response) => {
-
-};
-
-// Parses URL and determines what kind of operation the API is handling.
-const onRequest = (request, response) => {
-  if (request.method === 'GET') handleGet(request, response);
 };
 
 http.createServer(onRequest).listen(port);
