@@ -2,34 +2,30 @@ const query = require('querystring');
 const getHandler = require('./getResponses');
 
 const addUser = (request, response) => {
-  // uploads come in as a byte stream that we need
-  // to reassemble once it's all arrived
+
+  // THIS SECTION OF THE CODE WAS TAKEN AND ADAPTED FROM AN EXAMPLE REPO IN 430
+  // GITHUB LINK: https://github.com/IGM-RichMedia-at-RIT/body-parse-example-done
   const body = [];
 
-  // if the upload stream errors out, just throw a
-  // a bad request and send it back
+  // Check for errors.
   request.on('error', (err) => {
     console.dir(err);
     response.statusCode = 400;
     response.end();
   });
 
-  // on 'data' is for each byte of data that comes in
-  // from the upload. We will add it to our byte array.
+  // Bundle all the data bytes together.
   request.on('data', (chunk) => {
     body.push(chunk);
   });
 
-  // on end of upload stream.
+  // Proccess our data now.
   request.on('end', () => {
-    // combine our byte array (using Buffer.concat)
-    // and convert it to a string value (in this instance)
+    // Piece together the new user.
     const bodyString = Buffer.concat(body).toString();
-    // since we are getting x-www-form-urlencoded data
-    // the format will be the same as querystrings
-    // Parse the string into an object by field name
     const bodyParams = query.parse(bodyString);
 
+    // If the user already exists, update them.
     if (getHandler.users[bodyParams.name]) {
       getHandler.users[bodyParams.name] = bodyParams;
 
@@ -39,7 +35,9 @@ const addUser = (request, response) => {
       };
       response.write(JSON.stringify(responseObj));
       response.end();
-    } else if (bodyParams.name && bodyParams.age) {
+    } 
+    // If both fields are full, create a new user.
+    else if (bodyParams.name && bodyParams.age) {
       getHandler.users[bodyParams.name] = bodyParams;
 
       response.writeHead(201, { 'Content-Type': 'application/json' });
@@ -48,7 +46,9 @@ const addUser = (request, response) => {
       };
       response.write(JSON.stringify(responseObj));
       response.end();
-    } else {
+    } 
+    // If either fields are missing, return a 400 error.
+    else {
       response.writeHead(400, { 'Content-Type': 'application/json' });
       const responseObj = {
         message: 'Missing required user parameters.',

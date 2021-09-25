@@ -6,6 +6,7 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel">
+    // Parse through any JSON coming from the server.
     const parseJSON = (xhr, content) => {
       const obj = JSON.parse(xhr.response);
       console.dir(obj);
@@ -23,12 +24,14 @@
       }
     };
 
+    // Parse any XML coming from the server.
     const parseXML = (xhr, content) => {
       const xml = xhr.response;
 
       content.innerHTML = xml;
     };
 
+    // Parse through a user object if getUsers is called.
     const parseUsers = (xhr, content) => {
       const obj = JSON.parse(xhr.response);
       console.dir(obj);
@@ -48,11 +51,11 @@
 
     const handleResponse = (xhr) => {
       const content = document.querySelector('#content');
-
       const responseType = xhr.getResponseHeader('Content-Type');
       const p = document.createElement('p');
       content.innerHTML = '';
 
+      // Determine what to do based-on the server's feedback of our request.
       switch (xhr.status) {
         case 200:
           if (xhr.response) parseUsers(xhr, content);
@@ -83,6 +86,7 @@
       }
     };
 
+    // Send GET/HEAD information to the server.
     const sendGet = (e) => {
       e.preventDefault();
 
@@ -99,6 +103,7 @@
       xhr.send();
     };
 
+    // Send the user's data to the server with a POST request.
     const sendPost = (e) => {
       e.preventDefault();
 
@@ -161,5 +166,12 @@
   </section>
   <section id="content">
   </section>
+  <footer>
+    <p>Credits:</p>
+    <ul>
+      <li>Austin Willoughby and Cody Van de Mark for POST data-processing code from the following repo: https://github.com/IGM-RichMedia-at-RIT/body-parse-example-done</li>
+      <li>Austin Willoughby and Cody Van de Mark for the API assignment part 1 and 2 starter code.</li>
+    </ul>
+  </footer>
 </body>
 </html>

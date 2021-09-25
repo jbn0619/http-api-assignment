@@ -7,6 +7,7 @@ const headHandler = require('./headResponses');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
+// A dictionary to send user requests to the proper method.
 const urlDictionary = {
   GET: {
     '/': htmlHandler.getIndex,

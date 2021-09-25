@@ -19,3 +19,8 @@ html, body {
   font-size: 2em;
   text-align: center;
 }
+
+footer {
+  text-align: center;
+  margin: 0 auto;
+}
